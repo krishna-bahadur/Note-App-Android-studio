@@ -56,7 +56,6 @@ public class InputPasswordActivity extends AppCompatActivity {
                 else {
                     Toast.makeText(InputPasswordActivity.this, "Wrong Pattern", Toast.LENGTH_SHORT).show();
                     mPatternLockView.clearPattern();
-                    finish();
                 }
 
             }

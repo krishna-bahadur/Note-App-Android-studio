@@ -87,7 +87,8 @@ public class ProgramActivity extends AppCompatActivity {
                  builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
                      @Override
                      public void onClick(DialogInterface dialogInterface, int i) {
-                         recyclerView.setAdapter(new CustomAdapter(ProgramActivity.this, db.retrieveData()));
+                         recyclerView.setAdapter(new CustomAdapter(ProgramActivity.this, db.retrieveHiddenData()));
+                     
                      }
                  });
 
