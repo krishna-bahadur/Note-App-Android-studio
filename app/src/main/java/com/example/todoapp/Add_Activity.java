@@ -52,7 +52,7 @@ public class Add_Activity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-
+                //insert data into database
                 Toast.makeText(Add_Activity.this, "Item Added", Toast.LENGTH_SHORT).show();
 
                 Log.e("title",""+eTitle.getText());
@@ -61,6 +61,7 @@ public class Add_Activity extends AppCompatActivity {
                 ItemModel model = new ItemModel();
                 model.setTitle(eTitle.getText().toString());
                 model.setDescription(eDescription.getText().toString());
+                //get current time
                 model.setTime(new SimpleDateFormat("hh:mm", Locale.getDefault()).format(new Date()));
                 model.setFlag(0);
                 insertData(model);

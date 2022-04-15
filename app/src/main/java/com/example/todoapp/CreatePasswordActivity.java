@@ -23,8 +23,9 @@ public class CreatePasswordActivity extends AppCompatActivity {
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         getWindow().setStatusBarColor(ContextCompat.getColor(CreatePasswordActivity.this,R.color.white));
 
-
         setContentView(R.layout.activity_create_password);
+
+        //create pattern password
         mPatternLockView = (PatternLockView) findViewById(R.id.pattern_lock_view);
         mPatternLockView.addPatternLockListener(new PatternLockViewListener() {
             @Override

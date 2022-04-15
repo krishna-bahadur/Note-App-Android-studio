@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity  implements GestureDetector.
         this.gestureDetector = new GestureDetector(MainActivity.this, this);
 
 
-
+        //search according to text given in search bar
         EditText searchView = findViewById(R.id.searchView);
         searchView.addTextChangedListener(new TextWatcher() {
             @Override
@@ -102,6 +102,7 @@ public class MainActivity extends AppCompatActivity  implements GestureDetector.
     }
 
     private void filter(String text) {
+        //search item by filtering from the database
         ArrayList<ItemModel> filteredList = new ArrayList<>();
         for (int i = 0; i < list.size(); i++) {
             if (list.get(i).getTitle().toLowerCase().contains(text.toLowerCase())) {
@@ -134,7 +135,7 @@ public class MainActivity extends AppCompatActivity  implements GestureDetector.
                 y2 =event.getY();
 
                 float valueY = y2 - y1;
-
+                // if swipe down then show pattern view activity
                 if(Math.abs(valueY)> MIN_DISTANCE){
                     if( y2 > y1){
                         //stored password value into sharedPreferences

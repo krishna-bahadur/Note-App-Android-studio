@@ -44,6 +44,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // put value in intent putExtra for detail page
                 Intent i = new Intent(c,Edit_Activity.class);
                 i.putExtra("title",data.get(position).getTitle());
                 i.putExtra("description",data.get(position).getDescription());

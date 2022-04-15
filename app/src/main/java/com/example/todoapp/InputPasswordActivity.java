@@ -28,6 +28,7 @@ public class InputPasswordActivity extends AppCompatActivity {
         getWindow().setStatusBarColor(ContextCompat.getColor(InputPasswordActivity.this,R.color.white));
 
 
+
         SharedPreferences sharedPreferences = getSharedPreferences("PREFS",0);
         password = sharedPreferences.getString("password","0");
 
@@ -45,6 +46,7 @@ public class InputPasswordActivity extends AppCompatActivity {
 
             @Override
             public void onComplete(List<PatternLockView.Dot> pattern) {
+                //check if the pattern is right or wrong
                 if(password.equals(PatternLockUtils.patternToString(mPatternLockView,pattern))){
                     Intent intent = new Intent(InputPasswordActivity.this,ProgramActivity.class);
                     startActivity(intent);

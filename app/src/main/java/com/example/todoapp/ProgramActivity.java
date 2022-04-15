@@ -1,12 +1,14 @@
 package com.example.todoapp;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Canvas;
 import android.os.Bundle;
@@ -68,11 +70,33 @@ public class ProgramActivity extends AppCompatActivity {
 
              @Override
              public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                 // delete on swipe with alert confirmation
+                 AlertDialog.Builder builder = new AlertDialog.Builder(ProgramActivity.this);
+                 builder.setTitle("Confirmation");
+                 builder.setMessage("Are you sure to delete this ?");
+                 builder.setIcon(R.drawable.ic_baseline_delete_24);
+                 builder.setCancelable(false);
+                 builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                     @Override
+                     public void onClick(DialogInterface dialogInterface, int i) {
                          db.RemoveItemFromDb((int) viewHolder.itemView.getTag());
                          Toast.makeText(ProgramActivity.this, "Item deleted", Toast.LENGTH_SHORT).show();
                          recyclerView.setAdapter(new CustomAdapter(ProgramActivity.this, db.retrieveHiddenData()));
+                     }
+                 });
+                 builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                     @Override
+                     public void onClick(DialogInterface dialogInterface, int i) {
+                         recyclerView.setAdapter(new CustomAdapter(ProgramActivity.this, db.retrieveData()));
+                     }
+                 });
+
+                 builder.show();
+
+
                  }
 
+                 //set icon and background color while swiping
              @Override
              public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
                  new RecyclerViewSwipeDecorator.Builder(ProgramActivity.this,c,recyclerView,viewHolder,dX,dY,actionState,isCurrentlyActive)

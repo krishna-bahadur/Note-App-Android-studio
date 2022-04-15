@@ -36,7 +36,7 @@ public class Edit_Activity extends AppCompatActivity {
         editBackBtn = findViewById(R.id.editBackBtn);
         editBtnSave = findViewById(R.id.editBtnSave);
 
-
+        //get value from put intent
         editTitle.setText(getIntent().getExtras().getString("title"));
         editDescription.setText(getIntent().getExtras().getString("description"));
 

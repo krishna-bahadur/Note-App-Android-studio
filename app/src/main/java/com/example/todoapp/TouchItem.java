@@ -1,10 +1,12 @@
 package com.example.todoapp;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Canvas;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
@@ -36,18 +38,56 @@ public class TouchItem {
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                 switch (direction){
                     case ItemTouchHelper.LEFT:
-                        db.RemoveItemFromDb((int) viewHolder.itemView.getTag());
-                        Toast.makeText(c, "Item deleted", Toast.LENGTH_SHORT).show();
-                        view.setAdapter(new CustomAdapter(c, db.retrieveData()));
+                        AlertDialog.Builder builder = new AlertDialog.Builder(c);
+                        builder.setTitle("Confirmation");
+                        builder.setMessage("Are you sure to delete this ?");
+                        builder.setIcon(R.drawable.ic_baseline_delete_24);
+                        builder.setCancelable(false);
+                        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                db.RemoveItemFromDb((int) viewHolder.itemView.getTag());
+                                Toast.makeText(c, "Item deleted", Toast.LENGTH_SHORT).show();
+                                view.setAdapter(new CustomAdapter(c, db.retrieveData()));
+                            }
+                        });
+                        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                view.setAdapter(new CustomAdapter(c, db.retrieveData()));
+                            }
+                        });
+
+                        builder.show();
+
+
+
+
                         break;
 
                     case ItemTouchHelper.RIGHT:
-                        ItemModel model = new ItemModel();
-                        model.setFlag(1);
-
-                        db.updateFlag(model,(int) viewHolder.itemView.getTag());
-                        Toast.makeText(c, "Item hidden", Toast.LENGTH_SHORT).show();
-                        view.setAdapter(new CustomAdapter(c, db.retrieveData()));
+                        AlertDialog.Builder b = new AlertDialog.Builder(c);
+                        b.setTitle("Confirmation");
+                        b.setMessage("Are you sure to Hide this ?");
+                        b.setIcon(R.drawable.ic_baseline_lock_24);
+                        b.setCancelable(false);
+                        b.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                ItemModel model = new ItemModel();
+                                model.setFlag(1);
+                                db.updateFlag(model,(int) viewHolder.itemView.getTag());
+                                Toast.makeText(c, "Item hidden", Toast.LENGTH_SHORT).show();
+                                view.setAdapter(new CustomAdapter(c, db.retrieveData()));
+                            }
+                        });
+                        b.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                view.setAdapter(new CustomAdapter(c, db.retrieveData()));
+                            }
+                        });
+                        b.show();
                         break;
                 }
 
