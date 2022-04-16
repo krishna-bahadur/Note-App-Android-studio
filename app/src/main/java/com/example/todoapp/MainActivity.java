@@ -192,4 +192,13 @@ public class MainActivity extends AppCompatActivity  implements GestureDetector.
     public boolean onFling(MotionEvent motionEvent, MotionEvent motionEvent1, float v, float v1) {
         return false;
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        DbHelper db = new DbHelper(this);
+        list = db.retrieveData();
+        view.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+        view.setAdapter(new CustomAdapter(MainActivity.this, list));
+    }
 }

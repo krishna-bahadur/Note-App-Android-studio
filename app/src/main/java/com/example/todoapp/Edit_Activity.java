@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.todoapp.dbutil.DbHelper;
 import com.example.todoapp.model.ItemModel;
@@ -59,8 +60,11 @@ public class Edit_Activity extends AppCompatActivity {
                 model.setTime(new SimpleDateFormat("hh:mm", Locale.getDefault()).format(new Date()));
                 // save updated data into database and return to main activity
                 db.updateRecord(model, id);
-                Intent intent = new Intent(Edit_Activity.this,MainActivity.class);
-                startActivity(intent);
+                Toast.makeText(getApplicationContext(), "Updated", Toast.LENGTH_SHORT).show();
+//                Intent intent = new Intent(Edit_Activity.this,MainActivity.class);
+//                startActivity(intent);
+
+
                 finish();
             }
         });
